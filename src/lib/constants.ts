@@ -116,8 +116,8 @@ export type UserRole = "CLIENT" | "PROVIDER" | "INSPECTOR" | "ADMIN";
 export const USER_ROLES: { key: UserRole; label: string; description: string }[] = [
   {
     key: "CLIENT",
-    label: "Diaspora / Property Owner",
-    description: "I want to post construction projects, receive quotes, and monitor progress remotely."
+    label: "Property Owner (Local or Diaspora)",
+    description: "I want to post construction projects, receive quotes, and monitor progress on site or remotely."
   },
   {
     key: "PROVIDER",

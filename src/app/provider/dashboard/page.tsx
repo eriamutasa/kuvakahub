@@ -121,7 +121,7 @@ export default function ProviderDashboardPage() {
             <Briefcase className="w-12 h-12 text-slate-500 mx-auto" />
             <h3 className="text-lg font-bold text-white">No open projects available right now.</h3>
             <p className="text-xs text-slate-400 max-w-md mx-auto">
-              New construction opportunities in {LAUNCH_CITY} posted by diaspora clients will appear here.
+              New construction opportunities in {LAUNCH_CITY} posted by local and diaspora clients will appear here.
             </p>
           </div>
         ) : (

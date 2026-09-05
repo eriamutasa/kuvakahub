@@ -110,7 +110,7 @@ export default function LandingPage() {
           <h2 className="text-xs font-bold text-amber-400 uppercase tracking-widest">Simple Workflow</h2>
           <p className="text-2xl sm:text-4xl font-extrabold text-white">How {APP_NAME} Works</p>
           <p className="text-slate-400 text-sm">
-            Designed for diaspora property owners who require transparency and structured oversight.
+            Designed for local and diaspora property owners who require transparency and structured oversight.
           </p>
         </div>
 
@@ -175,7 +175,7 @@ export default function LandingPage() {
             </h2>
 
             <p className="text-sm text-slate-300 leading-relaxed">
-              A major vulnerability for diaspora property developers is relying solely on contractor self-reporting. On {APP_NAME}, builder photos are <strong>never allowed</strong> to count as automatic verification.
+              A major vulnerability for property developers, whether local or abroad, is relying solely on contractor self-reporting. On {APP_NAME}, builder photos are <strong>never allowed</strong> to count as automatic verification.
             </p>
 
             <ul className="space-y-3 text-xs text-slate-200">

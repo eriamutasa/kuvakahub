@@ -325,7 +325,7 @@ export default function ClientProjectCompletionPage({
               <textarea
                 rows={3}
                 required
-                placeholder="What should other KuvakaHub diaspora clients know about this provider's work?"
+                placeholder="What should other KuvakaHub clients know about this provider's work?"
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-amber-500"

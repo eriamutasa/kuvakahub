@@ -17,7 +17,7 @@ export function Footer() {
               <span>{APP_NAME}</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Empowering diaspora property owners to build, renovate, and maintain property in Zimbabwe with remote verification and transparency.
+              Empowering local and diaspora property owners to build, renovate, and maintain property in Zimbabwe with independent verification and transparency.
             </p>
             <div className="flex items-center gap-2 text-xs text-amber-400 font-medium">
               <MapPin className="w-3.5 h-3.5" />
@@ -25,9 +25,9 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Diaspora Services */}
+          {/* Column 2: Client Services */}
           <div>
-            <h4 className="font-semibold text-slate-200 text-xs uppercase tracking-wider mb-3">Diaspora Clients</h4>
+            <h4 className="font-semibold text-slate-200 text-xs uppercase tracking-wider mb-3">Property Owners</h4>
             <ul className="space-y-2 text-xs">
               <li><Link href="/register" className="hover:text-amber-400 transition-colors">Post a Project</Link></li>
               <li><Link href="/providers" className="hover:text-amber-400 transition-colors">Find Verified Builders</Link></li>
@@ -58,7 +58,7 @@ export function Footer() {
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-300">
               <Globe className="w-4 h-4 text-amber-400" />
-              <span>Serving Diaspora Worldwide (SA, UK, USA, AUS)</span>
+              <span>Serving Zimbabwe & the Diaspora (SA, UK, USA, AUS)</span>
             </div>
           </div>
         </div>

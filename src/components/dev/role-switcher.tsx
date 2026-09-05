@@ -14,7 +14,7 @@ export function DevRoleSwitcher() {
   const { role, switchRole, user } = useAuth();
 
   const roles: { key: UserRole; label: string; icon: React.ReactNode; color: string }[] = [
-    { key: "CLIENT", label: "Client (Diaspora)", icon: <UserCheck className="w-3.5 h-3.5" />, color: "bg-blue-600" },
+    { key: "CLIENT", label: "Client (Local & Diaspora)", icon: <UserCheck className="w-3.5 h-3.5" />, color: "bg-blue-600" },
     { key: "PROVIDER", label: "Provider (Builder)", icon: <HardHat className="w-3.5 h-3.5" />, color: "bg-amber-600" },
     { key: "INSPECTOR", label: "Inspector", icon: <ClipboardCheck className="w-3.5 h-3.5" />, color: "bg-emerald-600" },
     { key: "ADMIN", label: "Admin", icon: <Shield className="w-3.5 h-3.5" />, color: "bg-purple-600" },
