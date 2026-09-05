@@ -37,7 +37,7 @@ export function Navbar() {
           { label: "Dashboard", href: "/client/dashboard", icon: LayoutDashboard },
           { label: "My Projects", href: "/client/dashboard", icon: FolderKanban },
           { label: "Find Pros", href: "/providers", icon: Users },
-          { label: "Notifications", href: "#", icon: Bell, badge: 2 },
+          { label: "Notifications", href: "#", icon: Bell },
         ];
       case "PROVIDER":
         return [
