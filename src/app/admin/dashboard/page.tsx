@@ -27,8 +27,7 @@ export default function AdminDashboardPage() {
   const { user } = useAuth();
   const [providerVerified, setProviderVerified] = useState(false);
 
-  const registeredProviders = marketplaceStore.getProviderProfiles();
-  const totalUserCount = registeredProviders.length + 3; // Providers + Client, Inspector, Admin core profiles
+  const totalUserCount = marketplaceStore.getRegisteredUserCount(user?.id);
   const pendingMilestones = marketplaceStore.getUnassignedMilestonesForInspection();
   const openDisputes = marketplaceStore.getDisputesForAdmin().filter((d) => d.dispute.status === "OPEN");
   const pilotFeedback = feedbackStore.getFeedbackForAdmin();
@@ -74,7 +73,7 @@ export default function AdminDashboardPage() {
         <div className="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl space-y-1">
           <p className="text-xs text-slate-400">Total Registered Users</p>
           <p className="text-2xl font-extrabold text-white">{totalUserCount} Accounts</p>
-          <p className="text-[10px] text-slate-500">Client, Providers, Inspector, Admin</p>
+          <p className="text-[10px] text-slate-500">Registered Platform Profiles</p>
         </div>
 
         <div className="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl space-y-1">

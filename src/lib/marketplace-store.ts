@@ -297,6 +297,31 @@ class MarketplaceStore {
     }
   }
 
+  getRegisteredUserCount(currentUserId?: string): number {
+    const uniqueUserIds = new Set<string>();
+
+    if (currentUserId) {
+      uniqueUserIds.add(currentUserId);
+    }
+    this.providerProfiles.forEach((p) => {
+      if (p.id) uniqueUserIds.add(p.id);
+    });
+    this.inspectorProfiles.forEach((i) => {
+      if (i.id) uniqueUserIds.add(i.id);
+    });
+    this.projects.forEach((p) => {
+      if (p.clientId) uniqueUserIds.add(p.clientId);
+    });
+    this.auditLogs.forEach((a) => {
+      if (a.actorUserId) uniqueUserIds.add(a.actorUserId);
+    });
+    this.notifications.forEach((n) => {
+      if (n.userId) uniqueUserIds.add(n.userId);
+    });
+
+    return uniqueUserIds.size;
+  }
+
   getAssignmentForProject(projectId: string): ProjectProviderAssignment | undefined {
     return this.assignments.find((a) => a.projectId === projectId && a.status === "ACTIVE");
   }
