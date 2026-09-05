@@ -42,7 +42,7 @@ export function Navbar() {
       case "PROVIDER":
         return [
           { label: "Dashboard", href: "/provider/dashboard", icon: LayoutDashboard },
-          { label: "Find Jobs", href: "/jobs", icon: Briefcase, badge: 3 },
+          { label: "Find Jobs", href: "/jobs", icon: Briefcase },
           { label: "My Projects", href: "/provider/dashboard", icon: FolderKanban },
           { label: "Notifications", href: "#", icon: Bell },
         ];
