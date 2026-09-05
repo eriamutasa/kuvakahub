@@ -27,7 +27,7 @@ export default function AdminDashboardPage() {
   const { user } = useAuth();
   const [providerVerified, setProviderVerified] = useState(false);
 
-  const totalUserCount = marketplaceStore.getRegisteredUserCount(user?.id);
+  const totalUserCount = marketplaceStore.getRegisteredUserCount();
   const pendingMilestones = marketplaceStore.getUnassignedMilestonesForInspection();
   const openDisputes = marketplaceStore.getDisputesForAdmin().filter((d) => d.dispute.status === "OPEN");
   const pilotFeedback = feedbackStore.getFeedbackForAdmin();

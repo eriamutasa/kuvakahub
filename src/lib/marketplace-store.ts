@@ -236,7 +236,19 @@ export interface InspectorProfile {
   phone?: string;
 }
 
+export interface UserRecord {
+  id: string;
+  role: string;
+  createdAt: string;
+}
+
 // Production seed state: Empty by default. Data is persisted from Supabase Auth & DB.
+const INITIAL_USERS: UserRecord[] = [
+  { id: "usr-client-active", role: "CLIENT", createdAt: new Date().toISOString() },
+  { id: "usr-provider-active", role: "PROVIDER", createdAt: new Date().toISOString() },
+  { id: "usr-inspector-active", role: "INSPECTOR", createdAt: new Date().toISOString() },
+  { id: "usr-admin-active", role: "ADMIN", createdAt: new Date().toISOString() },
+];
 const INITIAL_PROJECTS: Project[] = [];
 const INITIAL_QUOTATIONS: Quotation[] = [];
 const INITIAL_ASSIGNMENTS: ProjectProviderAssignment[] = [];
@@ -250,6 +262,7 @@ const INITIAL_PAYMENT_DISPUTES: PaymentDispute[] = [];
 const INITIAL_PROVIDER_REVIEWS: ProviderReview[] = [];
 
 class MarketplaceStore {
+  private usersTable: UserRecord[] = [...INITIAL_USERS];
   private projects: Project[] = [...INITIAL_PROJECTS];
   private quotations: Quotation[] = [...INITIAL_QUOTATIONS];
   private assignments: ProjectProviderAssignment[] = [...INITIAL_ASSIGNMENTS];
@@ -265,6 +278,21 @@ class MarketplaceStore {
   private inspectorProfiles: InspectorProfile[] = [];
   private notifications: NotificationItem[] = [];
   private auditLogs: AuditLogItem[] = [];
+
+  // --- CANONICAL USER PROFILES ---
+  registerUserRecord(user: { id: string; role: string }) {
+    if (!this.usersTable.some((u) => u.id === user.id)) {
+      this.usersTable.push({
+        id: user.id,
+        role: user.role,
+        createdAt: new Date().toISOString(),
+      });
+    }
+  }
+
+  getRegisteredUserCount(): number {
+    return this.usersTable.length;
+  }
 
   // --- PROVIDER & INSPECTOR PROFILES ---
   getProviderProfiles(): ProviderProfile[] {
@@ -282,6 +310,7 @@ class MarketplaceStore {
     } else {
       this.providerProfiles.push(profile);
     }
+    this.registerUserRecord({ id: profile.id, role: "PROVIDER" });
   }
 
   getVerifiedInspectors(): InspectorProfile[] {
@@ -295,31 +324,7 @@ class MarketplaceStore {
     } else {
       this.inspectorProfiles.push(profile);
     }
-  }
-
-  getRegisteredUserCount(currentUserId?: string): number {
-    const uniqueUserIds = new Set<string>();
-
-    if (currentUserId) {
-      uniqueUserIds.add(currentUserId);
-    }
-    this.providerProfiles.forEach((p) => {
-      if (p.id) uniqueUserIds.add(p.id);
-    });
-    this.inspectorProfiles.forEach((i) => {
-      if (i.id) uniqueUserIds.add(i.id);
-    });
-    this.projects.forEach((p) => {
-      if (p.clientId) uniqueUserIds.add(p.clientId);
-    });
-    this.auditLogs.forEach((a) => {
-      if (a.actorUserId) uniqueUserIds.add(a.actorUserId);
-    });
-    this.notifications.forEach((n) => {
-      if (n.userId) uniqueUserIds.add(n.userId);
-    });
-
-    return uniqueUserIds.size;
+    this.registerUserRecord({ id: profile.id, role: "INSPECTOR" });
   }
 
   getAssignmentForProject(projectId: string): ProjectProviderAssignment | undefined {

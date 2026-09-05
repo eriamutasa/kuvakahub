@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 import { UserRole } from "./constants";
+import { marketplaceStore } from "./marketplace-store";
 
 export interface UserProfile {
   id: string;
@@ -98,13 +99,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = (email: string, targetRole: UserRole = "CLIENT") => {
-    setCurrentUser({
-      id: `usr-${Date.now()}`,
+    const newId = `usr-${Date.now()}`;
+    const newUser: UserProfile = {
+      id: newId,
       email,
       fullName: email.split("@")[0] || "Account",
       phoneE164: "+263771000000",
       role: targetRole,
-    });
+    };
+    marketplaceStore.registerUserRecord({ id: newId, role: targetRole });
+    setCurrentUser(newUser);
   };
 
   const logout = () => {
@@ -112,19 +116,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const registerClient = (data: { fullName: string; email: string; phone: string; diasporaCountry: string }) => {
-    setCurrentUser({
-      id: `usr-client-${Date.now()}`,
+    const clientId = `usr-client-${Date.now()}`;
+    const newClient: UserProfile = {
+      id: clientId,
       email: data.email,
       fullName: data.fullName,
       phoneE164: data.phone,
       role: "CLIENT",
       profileDetails: { diasporaCountry: data.diasporaCountry },
-    });
+    };
+    marketplaceStore.registerUserRecord({ id: clientId, role: "CLIENT" });
+    setCurrentUser(newClient);
   };
 
   const registerProvider = (data: { fullName: string; businessName: string; email: string; phone: string; serviceCategory: string }) => {
-    setCurrentUser({
-      id: `usr-provider-${Date.now()}`,
+    const providerId = `usr-provider-${Date.now()}`;
+    const newProvider: UserProfile = {
+      id: providerId,
       email: data.email,
       fullName: data.fullName,
       phoneE164: data.phone,
@@ -133,7 +141,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         businessName: data.businessName,
         verificationStatus: "UNVERIFIED",
       },
-    });
+    };
+    marketplaceStore.registerUserRecord({ id: providerId, role: "PROVIDER" });
+    setCurrentUser(newProvider);
   };
 
   return (
