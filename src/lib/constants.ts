@@ -6,15 +6,31 @@ export const APP_SUBTITLE = "Connect with local professionals, compare quotation
 export const LAUNCH_CITY = "Chinhoyi";
 
 export const CHINHOYI_SUBURBS = [
-  "Hunyani",
-  "Orange Groove",
-  "Cold Stream",
-  "Rujeko",
+  "Alaska",
+  "Avelon",
   "Brundish",
-  "Chinhoyi Central",
   "Caves Area",
+  "Cherima",
+  "Chikonohono",
+  "Chinhoyi Central",
+  "Chitambo",
+  "Cold Stream",
+  "Gadzema",
+  "Gunhill",
+  "Hunyani",
+  "Katanda",
   "Mapako",
-  "Mupfure"
+  "Mupfure",
+  "Mzari",
+  "Orange Groove",
+  "Rujeko",
+  "Rusununguko",
+  "Shackleton",
+  "Sinoia Hill",
+  "St Ives 1",
+  "St Ives 2",
+  "Whitecity",
+  "Zvimba Park"
 ];
 
 export const ZIMBABWE_CITIES = [
