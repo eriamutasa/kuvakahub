@@ -32,11 +32,20 @@ function RegisterContent() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {/* Client Option */}
           <div
+            role="button"
+            tabIndex={0}
             onClick={() => setSelectedRole("CLIENT")}
-            className={`p-4 rounded-xl border cursor-pointer transition-all ${
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setSelectedRole("CLIENT");
+              }
+            }}
+            aria-pressed={selectedRole === "CLIENT"}
+            className={`p-4 rounded-xl border cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 ${
               selectedRole === "CLIENT"
-                ? "bg-amber-950/60 border-amber-500 shadow-md ring-1 ring-amber-500/50"
-                : "bg-slate-950 border-slate-800 hover:border-slate-700"
+                ? "bg-amber-950/60 border-amber-500 shadow-md ring-1 ring-amber-500/50 text-white"
+                : "bg-slate-950 border-slate-800 hover:border-slate-700 text-slate-300"
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -52,11 +61,20 @@ function RegisterContent() {
 
           {/* Provider Option */}
           <div
+            role="button"
+            tabIndex={0}
             onClick={() => setSelectedRole("PROVIDER")}
-            className={`p-4 rounded-xl border cursor-pointer transition-all ${
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setSelectedRole("PROVIDER");
+              }
+            }}
+            aria-pressed={selectedRole === "PROVIDER"}
+            className={`p-4 rounded-xl border cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 ${
               selectedRole === "PROVIDER"
-                ? "bg-amber-950/60 border-amber-500 shadow-md ring-1 ring-amber-500/50"
-                : "bg-slate-950 border-slate-800 hover:border-slate-700"
+                ? "bg-amber-950/60 border-amber-500 shadow-md ring-1 ring-amber-500/50 text-white"
+                : "bg-slate-950 border-slate-800 hover:border-slate-700 text-slate-300"
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -73,11 +91,11 @@ function RegisterContent() {
       </div>
 
       {/* Security Notice for Inspector & Admin Roles */}
-      <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-start gap-2.5 text-[11px] text-slate-400">
+      <div className="bg-slate-950 border border-slate-800 p-3.5 rounded-xl flex items-start gap-3 text-[11px] text-slate-400">
         <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
         <div>
           <p className="font-semibold text-slate-300">Independent Inspector Accounts</p>
-          <p className="text-slate-400">
+          <p className="text-slate-400 leading-relaxed">
             To preserve objective verification integrity, <strong>Inspector</strong> and <strong>Admin</strong> accounts cannot be created via public registration and require manual verification.
           </p>
         </div>
@@ -85,7 +103,7 @@ function RegisterContent() {
 
       <button
         onClick={handleNext}
-        className="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-sm shadow-md transition-all flex items-center justify-center gap-2"
+        className="w-full min-h-[44px] py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-sm shadow-md transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
       >
         <span>Continue to Profile Setup</span>
         <ArrowRight className="w-4 h-4" />
@@ -94,7 +112,7 @@ function RegisterContent() {
       <div className="text-center pt-2 border-t border-slate-800">
         <p className="text-xs text-slate-400">
           Already have an account?{" "}
-          <Link href="/login" className="text-amber-400 font-bold hover:underline">
+          <Link href="/login" className="text-amber-400 font-bold hover:underline focus:outline-none focus:ring-1 focus:ring-amber-500 rounded px-1">
             Log In
           </Link>
         </p>

@@ -44,22 +44,46 @@ export default function ProviderDashboardPage() {
         </div>
 
         {/* Verification Status Badge */}
-        <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 px-4 py-2.5 rounded-xl">
-          <ShieldAlert className="w-5 h-5 text-amber-400" />
+        <div className={`flex items-center gap-2 bg-slate-950 border px-4 py-2.5 rounded-xl ${
+          verificationStatus === "VERIFIED"
+            ? "border-emerald-800/80 bg-emerald-950/20"
+            : "border-amber-800/80 bg-amber-950/20"
+        }`}>
+          {verificationStatus === "VERIFIED" ? (
+            <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+          ) : (
+            <ShieldAlert className="w-5 h-5 text-amber-400" />
+          )}
           <div className="text-xs">
             <p className="text-slate-400 text-[10px]">Verification Status:</p>
-            <p className="font-bold text-amber-400 uppercase tracking-wider">{verificationStatus}</p>
+            <p className={`font-extrabold uppercase tracking-wider ${
+              verificationStatus === "VERIFIED" ? "text-emerald-400" : "text-amber-400"
+            }`}>
+              {verificationStatus}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Verification Notice */}
-      <div className="bg-amber-950/40 border border-amber-800/50 p-4 rounded-xl flex items-start gap-3 text-xs text-amber-200">
-        <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+      <div className={`border p-4 rounded-xl flex items-start gap-3 text-xs ${
+        verificationStatus === "VERIFIED"
+          ? "bg-emerald-950/40 border-emerald-800/50 text-emerald-200"
+          : "bg-amber-950/40 border-amber-800/50 text-amber-200"
+      }`}>
+        {verificationStatus === "VERIFIED" ? (
+          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+        ) : (
+          <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+        )}
         <div>
-          <p className="font-bold text-amber-300">Account Verification Status</p>
-          <p className="text-amber-200/90 leading-relaxed">
-            Your profile is visible in Chinhoyi. You can submit itemized quotations for available jobs. Full verified badge will be assigned after Admin credential review.
+          <p className={`font-bold ${verificationStatus === "VERIFIED" ? "text-emerald-300" : "text-amber-300"}`}>
+            Account Verification Status: {verificationStatus}
+          </p>
+          <p className="leading-relaxed opacity-90">
+            {verificationStatus === "VERIFIED"
+              ? "Your business credentials have been verified by KuvakaHub Admin. Clients can see your verified badge on quotes and public profiles."
+              : "Your profile is active in Chinhoyi. You can submit itemized quotations for available jobs. Full verified badge will be assigned after Admin credential review."}
           </p>
         </div>
       </div>

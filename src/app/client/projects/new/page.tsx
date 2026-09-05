@@ -142,29 +142,31 @@ export default function NewProjectPage() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Title */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label htmlFor="projectTitle" className="block text-xs font-semibold text-slate-300 mb-1">
               Project Title *
             </label>
             <input
+              id="projectTitle"
               type="text"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. 3-Bedroom House Foundation & Footing Construction"
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 min-h-[44px] bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
 
           {/* Category & Suburb */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label htmlFor="categorySlug" className="block text-xs font-semibold text-slate-300 mb-1">
                 Service Category *
               </label>
               <select
+                id="categorySlug"
                 value={categorySlug}
                 onChange={(e) => setCategorySlug(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2.5 min-h-[44px] bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 {SERVICE_CATEGORIES.map((c) => (
                   <option key={c.id} value={c.slug}>
@@ -175,13 +177,14 @@ export default function NewProjectPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label htmlFor="suburb" className="block text-xs font-semibold text-slate-300 mb-1">
                 Suburb in {LAUNCH_CITY} *
               </label>
               <select
+                id="suburb"
                 value={suburb}
                 onChange={(e) => setSuburb(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2.5 min-h-[44px] bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 {CHINHOYI_SUBURBS.map((s) => (
                   <option key={s} value={s}>
@@ -194,29 +197,31 @@ export default function NewProjectPage() {
 
           {/* Description */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label htmlFor="description" className="block text-xs font-semibold text-slate-300 mb-1">
               Detailed Scope / Project Description *
             </label>
             <textarea
+              id="description"
               required
               rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe trench depth, slab thickness, brick requirements, and site conditions..."
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
 
           {/* Timeframe & Budget */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label htmlFor="timeframe" className="block text-xs font-semibold text-slate-300 mb-1">
                 Preferred Start Timeframe *
               </label>
               <select
+                id="timeframe"
                 value={timeframe}
                 onChange={(e) => setTimeframe(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2.5 min-h-[44px] bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="Immediately">Immediately (Within 7 days)</option>
                 <option value="Within 2 weeks">Within 2 weeks</option>
@@ -226,15 +231,16 @@ export default function NewProjectPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label htmlFor="budgetEstimate" className="block text-xs font-semibold text-slate-300 mb-1">
                 Estimated Budget ($ USD) (Optional)
               </label>
               <input
+                id="budgetEstimate"
                 type="number"
                 value={budgetEstimate}
                 onChange={(e) => setBudgetEstimate(e.target.value)}
                 placeholder="e.g. 6500"
-                className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2.5 min-h-[44px] bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               />
             </div>
           </div>
@@ -243,16 +249,17 @@ export default function NewProjectPage() {
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-amber-400" />
-              <label className="text-xs font-semibold text-white">
+              <label htmlFor="addressPrivate" className="text-xs font-semibold text-white">
                 Private Stand / Street Address (Optional & Protected)
               </label>
             </div>
             <input
+              id="addressPrivate"
               type="text"
               value={addressPrivate}
               onChange={(e) => setAddressPrivate(e.target.value)}
               placeholder="e.g. Stand 4182 Hunyani, Chinhoyi"
-              className="w-full px-3.5 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
             />
             <p className="text-[11px] text-slate-400 leading-normal">
               🔒 <strong>Privacy Safeguard:</strong> This address is hidden from the public and bidding contractors until you select a winning provider.
@@ -266,10 +273,19 @@ export default function NewProjectPage() {
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => setVisibility("MARKETPLACE")}
-                className={`p-3 rounded-xl border cursor-pointer ${
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setVisibility("MARKETPLACE");
+                  }
+                }}
+                aria-pressed={visibility === "MARKETPLACE"}
+                className={`p-3.5 rounded-xl border cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 ${
                   visibility === "MARKETPLACE"
-                    ? "bg-amber-950/60 border-amber-500 text-white"
+                    ? "bg-amber-950/60 border-amber-500 text-white shadow"
                     : "bg-slate-950 border-slate-800 text-slate-400"
                 }`}
               >
@@ -281,10 +297,19 @@ export default function NewProjectPage() {
               </div>
 
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => setVisibility("INVITE_ONLY")}
-                className={`p-3 rounded-xl border cursor-pointer ${
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setVisibility("INVITE_ONLY");
+                  }
+                }}
+                aria-pressed={visibility === "INVITE_ONLY"}
+                className={`p-3.5 rounded-xl border cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 ${
                   visibility === "INVITE_ONLY"
-                    ? "bg-amber-950/60 border-amber-500 text-white"
+                    ? "bg-amber-950/60 border-amber-500 text-white shadow"
                     : "bg-slate-950 border-slate-800 text-slate-400"
                 }`}
               >
@@ -299,7 +324,7 @@ export default function NewProjectPage() {
 
           <button
             type="submit"
-            className="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-sm shadow-md transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 min-h-[44px] bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-sm shadow-md transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
           >
             <span>Publish Project for Quotations</span>
             <ArrowRight className="w-4 h-4" />

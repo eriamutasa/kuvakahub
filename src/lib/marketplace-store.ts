@@ -1280,6 +1280,20 @@ class MarketplaceStore {
     return this.notifications.filter((n) => n.userId === userId);
   }
 
+  getUnreadNotificationCount(userId: string): number {
+    if (!userId) return 0;
+    return this.notifications.filter((n) => n.userId === userId && !n.isRead).length;
+  }
+
+  markNotificationsAsRead(userId: string) {
+    if (!userId) return;
+    this.notifications.forEach((n) => {
+      if (n.userId === userId) {
+        n.isRead = true;
+      }
+    });
+  }
+
   private addNotification(data: Omit<NotificationItem, "id" | "isRead" | "createdAt">) {
     this.notifications.unshift({
       ...data,

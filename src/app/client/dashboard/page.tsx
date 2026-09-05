@@ -60,7 +60,7 @@ export default function ClientDashboardPage() {
         <div className="space-y-1">
           <p className="font-bold text-emerald-300">Independent Verification & Payment Transparency Active</p>
           <p className="text-emerald-200/90 leading-relaxed">
-            Site inspections in {LAUNCH_CITY} are conducted by registered independent inspectors before milestone payment approvals. KuvakaHub records financial transparency status while you settle directly.
+            Independent site inspectors can review project milestones and provide progress evidence before client approval. KuvakaHub records payment status while clients and service providers settle payments directly.
           </p>
         </div>
       </div>

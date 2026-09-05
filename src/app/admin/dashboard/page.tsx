@@ -27,6 +27,8 @@ export default function AdminDashboardPage() {
   const { user } = useAuth();
   const [providerVerified, setProviderVerified] = useState(false);
 
+  const registeredProviders = marketplaceStore.getProviderProfiles();
+  const totalUserCount = registeredProviders.length + 3; // Providers + Client, Inspector, Admin core profiles
   const pendingMilestones = marketplaceStore.getUnassignedMilestonesForInspection();
   const openDisputes = marketplaceStore.getDisputesForAdmin().filter((d) => d.dispute.status === "OPEN");
   const pilotFeedback = feedbackStore.getFeedbackForAdmin();
@@ -51,7 +53,7 @@ export default function AdminDashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/admin/inspections"
-            className="text-xs font-extrabold bg-purple-600 hover:bg-purple-500 text-white px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5"
+            className="text-xs font-extrabold bg-purple-600 hover:bg-purple-500 text-white px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 min-h-[44px]"
           >
             <UserCheck className="w-4 h-4" />
             <span>Inspector Assignments ({pendingMilestones.length})</span>
@@ -59,7 +61,7 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/payment-disputes"
-            className="text-xs font-extrabold bg-rose-600 hover:bg-rose-500 text-white px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5"
+            className="text-xs font-extrabold bg-rose-600 hover:bg-rose-500 text-white px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 min-h-[44px]"
           >
             <ShieldAlert className="w-4 h-4" />
             <span>Disputes ({openDisputes.length})</span>
@@ -71,8 +73,8 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl space-y-1">
           <p className="text-xs text-slate-400">Total Registered Users</p>
-          <p className="text-2xl font-extrabold text-white">4 Accounts</p>
-          <p className="text-[10px] text-slate-500">Client, Provider, Inspector, Admin</p>
+          <p className="text-2xl font-extrabold text-white">{totalUserCount} Accounts</p>
+          <p className="text-[10px] text-slate-500">Client, Providers, Inspector, Admin</p>
         </div>
 
         <div className="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl space-y-1">
