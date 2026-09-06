@@ -2,25 +2,39 @@
 -- KUVAKAHUB PHASE 4 MIGRATION: FINANCIAL TRACKING, DISPUTES, & REVIEWS
 -- ============================================================================
 
+-- 0. PREREQUISITE: role-check helper used by every policy below.
+--    (Slice 0 repair: this function was referenced but never defined.)
+CREATE OR REPLACE FUNCTION public.check_user_role(p_user_id UUID, p_role TEXT)
+RETURNS BOOLEAN
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.users u
+    WHERE u.id = p_user_id AND u.role::text = p_role
+  );
+$$;
+
 -- 1. PAYMENT RECORDS TABLE
-CREATE TABLE IF NOT EXISTS public.payment_records (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    project_id UUID NOT NULL REFERENCES public.projects(id) ON DELETE CASCADE,
-    milestone_id UUID NOT NULL UNIQUE REFERENCES public.milestones(id) ON DELETE CASCADE,
-    client_id UUID NOT NULL REFERENCES public.profiles(id),
-    provider_id UUID NOT NULL REFERENCES public.profiles(id),
-    amount NUMERIC(12, 2) NOT NULL CHECK (amount >= 0),
-    currency TEXT NOT NULL DEFAULT 'USD',
-    status TEXT NOT NULL DEFAULT 'NOT_DUE' CHECK (status IN ('NOT_DUE', 'PENDING_APPROVAL', 'APPROVED', 'PAID', 'DISPUTED')),
-    approved_at TIMESTAMPTZ,
-    paid_at TIMESTAMPTZ,
-    payment_method_label TEXT,
-    external_reference TEXT,
-    client_note TEXT,
-    provider_acknowledged_at TIMESTAMPTZ,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+--    Slice 0 repair: Phase 1 already created public.payment_records
+--    (milestone-keyed, minimal columns). The original CREATE TABLE IF NOT EXISTS
+--    here was silently skipped, leaving the Phase 1 shape without the columns the
+--    indexes, policies and functions below depend on. Extend the existing table
+--    additively instead of redefining it.
+ALTER TABLE public.payment_records
+    ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES public.projects(id) ON DELETE CASCADE,
+    ADD COLUMN IF NOT EXISTS client_id UUID REFERENCES public.users(id),
+    ADD COLUMN IF NOT EXISTS provider_id UUID REFERENCES public.users(id),
+    ADD COLUMN IF NOT EXISTS currency TEXT NOT NULL DEFAULT 'USD',
+    ADD COLUMN IF NOT EXISTS approved_at TIMESTAMPTZ,
+    ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ,
+    ADD COLUMN IF NOT EXISTS payment_method_label TEXT,
+    ADD COLUMN IF NOT EXISTS external_reference TEXT,
+    ADD COLUMN IF NOT EXISTS client_note TEXT,
+    ADD COLUMN IF NOT EXISTS provider_acknowledged_at TIMESTAMPTZ,
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
 
 -- Index for payment queries
 CREATE INDEX IF NOT EXISTS idx_payment_records_project ON public.payment_records(project_id);
@@ -32,12 +46,12 @@ CREATE INDEX IF NOT EXISTS idx_payment_records_provider ON public.payment_record
 CREATE TABLE IF NOT EXISTS public.payment_disputes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     payment_record_id UUID NOT NULL REFERENCES public.payment_records(id) ON DELETE CASCADE,
-    raised_by_user_id UUID NOT NULL REFERENCES public.profiles(id),
+    raised_by_user_id UUID NOT NULL REFERENCES public.users(id),
     reason TEXT NOT NULL,
     description TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'OPEN' CHECK (status IN ('OPEN', 'UNDER_REVIEW', 'RESOLVED', 'CLOSED')),
     resolved_at TIMESTAMPTZ,
-    resolved_by_admin_id UUID REFERENCES public.profiles(id),
+    resolved_by_admin_id UUID REFERENCES public.users(id),
     resolution_notes TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -49,8 +63,8 @@ CREATE INDEX IF NOT EXISTS idx_payment_disputes_record ON public.payment_dispute
 CREATE TABLE IF NOT EXISTS public.provider_reviews (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID NOT NULL UNIQUE REFERENCES public.projects(id) ON DELETE CASCADE,
-    reviewer_client_id UUID NOT NULL REFERENCES public.profiles(id),
-    provider_id UUID NOT NULL REFERENCES public.profiles(id),
+    reviewer_client_id UUID NOT NULL REFERENCES public.users(id),
+    provider_id UUID NOT NULL REFERENCES public.users(id),
     overall_rating INT NOT NULL CHECK (overall_rating BETWEEN 1 AND 5),
     quality_rating INT CHECK (quality_rating BETWEEN 1 AND 5),
     communication_rating INT CHECK (communication_rating BETWEEN 1 AND 5),

@@ -63,6 +63,13 @@ export const ROLE_TEST_ACCOUNTS: Record<UserRole, UserProfile> = {
   },
 };
 
+export const ROLE_DASHBOARD_ROUTES: Record<UserRole, string> = {
+  CLIENT: "/client/dashboard",
+  PROVIDER: "/provider/dashboard",
+  INSPECTOR: "/inspector/dashboard",
+  ADMIN: "/admin/dashboard",
+};
+
 interface AuthContextType {
   user: UserProfile | null;
   role: UserRole;
@@ -85,16 +92,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.warn("Role Switcher is disabled in production.");
       return;
     }
-    // Update role on current authenticated user or set role test account
-    if (currentUser) {
-      setCurrentUser({
-        ...currentUser,
-        role: newRole,
-        fullName: currentUser.fullName.includes("Account") ? ROLE_TEST_ACCOUNTS[newRole].fullName : currentUser.fullName,
-      });
-    } else {
-      setCurrentUser(ROLE_TEST_ACCOUNTS[newRole]);
-    }
+    // Always load the neutral dev identity for the target role so role, name,
+    // and profile details never carry over from the previous role.
+    setCurrentUser(ROLE_TEST_ACCOUNTS[newRole]);
   };
 
   const login = (email: string, targetRole: UserRole = "CLIENT") => {
