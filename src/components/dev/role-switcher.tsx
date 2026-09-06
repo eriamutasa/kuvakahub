@@ -1,17 +1,24 @@
 "use client";
 
 import React from "react";
-import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
+import { useAuth, ROLE_DASHBOARD_ROUTES } from "@/lib/auth-context";
 import { UserRole } from "@/lib/constants";
 import { UserCheck, Shield, HardHat, ClipboardCheck, ArrowRightLeft } from "lucide-react";
 
 export function DevRoleSwitcher() {
+  const router = useRouter();
+  const { role, switchRole, user } = useAuth();
+
   // Gated strictly behind development environment
   if (process.env.NODE_ENV !== "development") {
     return null;
   }
 
-  const { role, switchRole, user } = useAuth();
+  const handleSwitch = (nextRole: UserRole) => {
+    switchRole(nextRole);
+    router.push(ROLE_DASHBOARD_ROUTES[nextRole]);
+  };
 
   const roles: { key: UserRole; label: string; icon: React.ReactNode; color: string }[] = [
     { key: "CLIENT", label: "Client (Local & Diaspora)", icon: <UserCheck className="w-3.5 h-3.5" />, color: "bg-blue-600" },
@@ -42,7 +49,7 @@ export function DevRoleSwitcher() {
             return (
               <button
                 key={r.key}
-                onClick={() => switchRole(r.key)}
+                onClick={() => handleSwitch(r.key)}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium transition-all ${
                   isActive
                     ? `${r.color} text-white shadow-sm ring-1 ring-white/30 font-semibold`
