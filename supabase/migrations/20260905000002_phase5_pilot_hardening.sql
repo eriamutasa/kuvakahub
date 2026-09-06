@@ -13,7 +13,7 @@ CREATE INDEX IF NOT EXISTS idx_notifications_user_read ON public.notifications(u
 -- 2. USER FEEDBACK TABLE FOR PILOT USERS
 CREATE TABLE IF NOT EXISTS public.user_feedback (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES public.profiles(id),
+    user_id UUID REFERENCES public.users(id),
     user_role TEXT NOT NULL,
     category TEXT NOT NULL CHECK (category IN ('CONFUSING', 'BROKEN', 'FEATURE_SUGGESTION', 'OTHER')),
     message TEXT NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS public.user_feedback (
 -- 3. PRIVACY-SAFE ANALYTICS EVENTS TABLE
 CREATE TABLE IF NOT EXISTS public.analytics_events (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES public.profiles(id),
+    user_id UUID REFERENCES public.users(id),
     event_name TEXT NOT NULL,
     metadata JSONB,
     created_at TIMESTAMPTZ DEFAULT NOW()

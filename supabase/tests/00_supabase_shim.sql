@@ -40,12 +40,12 @@ ALTER TABLE auth.users OWNER TO supabase_auth_admin;
 
 CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID
 LANGUAGE sql STABLE AS $$
-  SELECT NULLIF(current_setting('request.jwt.claim.sub', true), '')::uuid;
+  SELECT NULLIF(COALESCE(NULLIF(current_setting('request.jwt.claims', true), ''), '{}')::jsonb ->> 'sub', '')::uuid;
 $$;
 
 CREATE OR REPLACE FUNCTION auth.role() RETURNS TEXT
 LANGUAGE sql STABLE AS $$
-  SELECT NULLIF(current_setting('request.jwt.claim.role', true), '');
+  SELECT NULLIF(COALESCE(NULLIF(current_setting('request.jwt.claims', true), ''), '{}')::jsonb ->> 'role', '');
 $$;
 
 CREATE OR REPLACE FUNCTION auth.jwt() RETURNS JSONB
@@ -89,7 +89,6 @@ END $$;
 
 GRANT ALL ON ALL TABLES IN SCHEMA storage TO anon, authenticated, service_role;
 GRANT ALL ON ALL TABLES IN SCHEMA auth TO service_role, supabase_auth_admin;
-GRANT SELECT ON auth.users TO authenticated;
 
 -- Supabase grants these by default on the public schema
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
