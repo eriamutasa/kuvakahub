@@ -13,7 +13,7 @@ export default function ClientOnboardingPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [diasporaCountry, setDiasporaCountry] = useState("South Africa");
+  const [diasporaCountry, setDiasporaCountry] = useState("Zimbabwe");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ export default function ClientOnboardingPage() {
         </div>
         <h2 className="text-xl font-extrabold text-white">Client Setup</h2>
         <p className="text-xs text-slate-400">
-          Post projects and monitor progress remotely on {APP_NAME}
+          Post projects and monitor progress on {APP_NAME}, whether you live in Zimbabwe or abroad
         </p>
       </div>
 
@@ -82,7 +82,7 @@ export default function ClientOnboardingPage() {
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+27 71 234 5678 or +44 77..."
+                  placeholder="+263 77 123 4567, +27 71..., or +44 77..."
                   className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
                 />
               </div>
@@ -97,13 +97,13 @@ export default function ClientOnboardingPage() {
                 onChange={(e) => setDiasporaCountry(e.target.value)}
                 className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500"
               >
+                <option value="Zimbabwe">Zimbabwe (Local Client)</option>
                 <option value="South Africa">South Africa</option>
                 <option value="United Kingdom">United Kingdom</option>
                 <option value="United States">United States</option>
                 <option value="Australia">Australia</option>
                 <option value="Botswana">Botswana</option>
                 <option value="Canada">Canada</option>
-                <option value="Zimbabwe">Zimbabwe (Local Client)</option>
               </select>
             </div>
 

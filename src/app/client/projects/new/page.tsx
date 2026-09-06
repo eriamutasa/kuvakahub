@@ -130,7 +130,7 @@ export default function NewProjectPage() {
       <div className="space-y-2">
         <div className="flex items-center gap-2 text-xs text-amber-400 font-semibold">
           <FolderPlus className="w-4 h-4" />
-          <span>Diaspora Client Project Wizard</span>
+          <span>Client Project Wizard</span>
         </div>
         <h1 className="text-2xl font-extrabold text-white">Post a New Construction Project</h1>
         <p className="text-xs text-slate-400">

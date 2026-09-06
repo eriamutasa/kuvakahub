@@ -31,10 +31,14 @@ export default function ClientDashboardPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="bg-blue-500/20 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider border border-blue-500/30">
-              Diaspora Client Portal
+              Client Portal
             </span>
             <span className="text-xs text-slate-400">
-              {user?.profileDetails?.diasporaCountry ? `Living in ${user.profileDetails.diasporaCountry}` : "Diaspora Account"}
+              {user?.profileDetails?.diasporaCountry === "Zimbabwe"
+                ? "Local Client"
+                : user?.profileDetails?.diasporaCountry
+                  ? `Living in ${user.profileDetails.diasporaCountry}`
+                  : "Client Account"}
             </span>
           </div>
           <h1 className="text-2xl font-extrabold text-white mt-1">

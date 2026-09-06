@@ -43,10 +43,10 @@ function RegisterContent() {
               <div className="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center">
                 <UserCheck className="w-4 h-4" />
               </div>
-              <span className="font-bold text-sm text-white">Diaspora Client</span>
+              <span className="font-bold text-sm text-white">Client (Local or Diaspora)</span>
             </div>
             <p className="text-[11px] text-slate-400 leading-normal">
-              I want to post building, renovation, or maintenance jobs in Chinhoyi.
+              I want to post building, renovation, or maintenance jobs in Chinhoyi, whether I live locally or abroad.
             </p>
           </div>
 

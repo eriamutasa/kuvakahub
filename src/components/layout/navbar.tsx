@@ -37,12 +37,12 @@ export function Navbar() {
           { label: "Dashboard", href: "/client/dashboard", icon: LayoutDashboard },
           { label: "My Projects", href: "/client/dashboard", icon: FolderKanban },
           { label: "Find Pros", href: "/providers", icon: Users },
-          { label: "Notifications", href: "#", icon: Bell, badge: 2 },
+          { label: "Notifications", href: "#", icon: Bell },
         ];
       case "PROVIDER":
         return [
           { label: "Dashboard", href: "/provider/dashboard", icon: LayoutDashboard },
-          { label: "Find Jobs", href: "/jobs", icon: Briefcase, badge: 3 },
+          { label: "Find Jobs", href: "/jobs", icon: Briefcase },
           { label: "My Projects", href: "/provider/dashboard", icon: FolderKanban },
           { label: "Notifications", href: "#", icon: Bell },
         ];
